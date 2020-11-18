@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from "react";
-import { useLazyQuery } from "@apollo/client";
+import React, { useMemo } from "react";
+import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { GET_BOOKS } from "./queries";
 import { Book } from "../../models/Book";
@@ -14,17 +14,8 @@ import { Layout } from "../../components/Layout";
 const COLUMN_NAMES = ["Id", "Title", "Author", "Price"];
 
 export function BookList() {
-  const [getBooks, { loading, error, data }] = useLazyQuery<BooksData>(
-    GET_BOOKS
-  );
+  const { loading, error, data } = useQuery<BooksData>(GET_BOOKS);
   const [selectedBooks, handleRowSelect] = useSelectedRows<number>();
-
-  useEffect(
-    function () {
-      getBooks();
-    },
-    [getBooks]
-  );
 
   const books: Book[] = data ? data.books : [];
   const totalCount = selectedBooks.length;
