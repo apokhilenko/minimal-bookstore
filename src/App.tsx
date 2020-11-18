@@ -2,13 +2,13 @@ import React from "react";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./api/graphql";
 import { BrowserRouter as Router } from "react-router-dom";
-import { BookList } from "./features/BookList";
+import { Routes } from "./Routes";
 
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <BookList />
+        <Routes />
       </Router>
     </ApolloProvider>
   );
