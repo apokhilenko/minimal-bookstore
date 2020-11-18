@@ -1,4 +1,4 @@
-# Alacrity Frontend Test PRoject
+# Alacrity Frontend Test Project
 
 > React with Create-react-app(https://github.com/facebook/create-react-app)
 
