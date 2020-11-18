@@ -8,7 +8,7 @@ export function Routes() {
   return (
     <Switch>
       <Route path="/books" exact component={BooksPage} />
-      <Route path="/books/new" exact component={BookCreatePage} />
+      <Route path="/books/new" component={BookCreatePage} />
       <Route path="/books/:id" component={BookEditPage} />
 
       <Redirect exact from="/" to="books" />
