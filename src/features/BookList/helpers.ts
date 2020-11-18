@@ -1,18 +1,20 @@
-import { Book } from "../../models/Book";
+import { BookWithId } from "../../models/Book";
 
 export function calcualteTotalPrice(
-  allBooks: Book[],
+  allBooks: BookWithId[],
   bookIds: number[]
 ): number {
-  const selectedBooks: Book[] = allBooks.filter(function (book: Book) {
+  const selectedBooks: BookWithId[] = allBooks.filter(function (
+    book: BookWithId
+  ) {
     return bookIds.includes(book.bookId);
   });
 
   const totalPrice: number = selectedBooks.reduce<number>(function (
     price: number,
-    book: Book
+    book: BookWithId
   ) {
-    return price + book.price;
+    return Math.round((price + book.price) * 100) / 100;
   },
   0);
 

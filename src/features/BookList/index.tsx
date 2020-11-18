@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { GET_BOOKS } from "./queries";
-import { Book } from "../../models/Book";
+import { BookWithId } from "../../models/Book";
 import { BookListRow } from "./components/BookListRow";
 import { List } from "../../components/List";
 import { useSelectedRows } from "../../hooks/useSelectedRows";
@@ -17,14 +17,10 @@ export function BookList() {
   const { loading, error, data } = useQuery<BooksData>(GET_BOOKS);
   const [selectedBooks, handleRowSelect] = useSelectedRows<number>();
 
-  const books: Book[] = data ? data.books : [];
+  const books: BookWithId[] = data ? data.books : [];
   const totalCount = selectedBooks.length;
-  const totalPrice = useMemo(
-    function () {
-      return calcualteTotalPrice(books, selectedBooks);
-    },
-    [selectedBooks, books]
-  );
+  // TODO: consider useMemo to not recalculate on every render
+  const totalPrice = calcualteTotalPrice(books, selectedBooks);
 
   return (
     <Layout isLoading={loading} error={error?.message}>
@@ -36,7 +32,7 @@ export function BookList() {
         </Link>
       </ActionsPanel>
       <List columnNames={COLUMN_NAMES}>
-        {books.map(function ({ bookId, author, title, price }: Book) {
+        {books.map(function ({ bookId, author, title, price }: BookWithId) {
           const isSelected = selectedBooks.includes(bookId);
 
           return (
@@ -56,6 +52,8 @@ export function BookList() {
   );
 }
 
+export { GET_BOOKS } from "./queries";
+
 interface BooksData {
-  books: Book[];
+  books: BookWithId[];
 }

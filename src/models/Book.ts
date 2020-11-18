@@ -1,6 +1,8 @@
 export interface Book {
-  bookId: number;
   title: string;
   author: string;
   price: number;
+}
+export interface BookWithId extends Book {
+  bookId: number;
 }

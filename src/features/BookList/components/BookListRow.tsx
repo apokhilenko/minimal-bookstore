@@ -1,11 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Book } from "../../../models/Book";
-
-interface BookListRowProps extends Book {
-  isSelected: boolean;
-  onRowSelected: (id: number) => void;
-}
+import { BookWithId } from "../../../models/Book";
 
 export function BookListRow({
   bookId,
@@ -41,4 +36,9 @@ export function BookListRow({
       </td>
     </tr>
   );
+}
+
+interface BookListRowProps extends BookWithId {
+  isSelected: boolean;
+  onRowSelected: (id: number) => void;
 }
